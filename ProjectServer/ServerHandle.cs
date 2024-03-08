@@ -8,6 +8,8 @@ namespace ProjectServer
 {
     class ServerHandle
     {
+        public static Queue<(int, string)> moveQueue = new Queue<(int, string)>();
+
         public static void WelcomeReceived(int _fromClient, Packet _packet)
         {
             int _clientId = _packet.ReadInt();
@@ -25,6 +27,18 @@ namespace ProjectServer
         {
             string _msg = _packet.ReadString();
             Console.WriteLine($"Received via UDP. Contains: {_msg}");
+        }
+
+        public static void MoveSelected(int _fromClient, Packet _packet)
+        {
+            string _move = _packet.ReadString();
+            moveQueue.Enqueue((_fromClient, _move));
+            Server.clients[_fromClient].player.currentMove = _move;
+            Console.WriteLine($"UDP: Client {_fromClient} used move: {_move}");
+            if (moveQueue.Count == 2)
+            {
+                GameLogic.HandleAction();
+            }
         }
     }
 }

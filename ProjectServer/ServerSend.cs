@@ -103,5 +103,20 @@ namespace ProjectServer
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void UpdatePlayer(int _toClient, Player _player)
+        {
+            using (Packet  _packet = new Packet((int)ServerPackets.updatePlayer))
+            {
+                _packet.Write(_player.id);
+                _packet.Write(_player.username);
+                _packet.Write(_player.currentHP);
+                _packet.Write(_player.numberPotions);
+                _packet.Write(_player.defense);
+                _packet.Write(_player.currentMove);
+
+                SendUDPData(_toClient, _packet);
+            }
+        }
     }
 }

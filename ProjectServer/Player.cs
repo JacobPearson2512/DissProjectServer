@@ -15,6 +15,9 @@ namespace ProjectServer
         public int maxHP;
         public int currentHP;
         public int numberPotions;
+        public bool isBlocking;
+        public string currentMove;
+        public float defense;
 
         public Player(int _id, string _username, int _maxHP,  int _numberPotions)
         {
@@ -23,7 +26,9 @@ namespace ProjectServer
             maxHP = _maxHP;
             currentHP = _maxHP;
             numberPotions = _numberPotions;
-
+            isBlocking = false;
+            defense = 1.0f;
+            currentMove = "";
         }
     }
 }

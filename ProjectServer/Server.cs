@@ -15,6 +15,7 @@ namespace ProjectServer
         public static int Port {  get; private set; }
 
         public static Dictionary<int, Client> clients = new Dictionary<int, Client>();
+        public static int connectedPlayers = 0;
 
         public delegate void PacketHandler(int _fromClient, Packet _packet);
         public static Dictionary<int, PacketHandler> packetHandlers;
@@ -125,7 +126,8 @@ namespace ProjectServer
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived},
-                { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived}
+                { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived},
+                { (int)ClientPackets.moveSelected, ServerHandle.MoveSelected}
             };
             Console.WriteLine("Initialised Packets.");
 

@@ -174,6 +174,7 @@ namespace ProjectServer
         public void SendIntoGame(string _playerName)
         {
             player = new Player(id, _playerName, 150, 3);
+            Server.connectedPlayers += 1;
             foreach (Client _client in Server.clients.Values) //sends info of all other players that are already connected to new player.
             {
                 if(_client.player != null)
@@ -191,7 +192,7 @@ namespace ProjectServer
                     ServerSend.SpawnPlayer(_client.id, player);
                 }
             }
-            if (Server.clients.Count >= 2)
+            if (Server.connectedPlayers == 2)
             {
                 foreach (Client _client in Server.clients.Values)
                 {

@@ -11,7 +11,7 @@ namespace ProjectServer
         welcome = 1,
         spawnPlayer,
         startBattle,
-        playerHP,
+        updatePlayer,
         udpTest
     }
 
@@ -19,7 +19,7 @@ namespace ProjectServer
     public enum ClientPackets
     {
         welcomeReceived = 1,
-        playerHP,
+        moveSelected,
         udpTestReceived
     }
 
