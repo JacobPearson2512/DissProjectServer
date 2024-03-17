@@ -34,13 +34,39 @@ namespace ProjectServer
                     _player2.isBlocking = true;
                     Console.WriteLine($"{_player2.username} used Protect.");
                 }
+                if (_player1Move == "Heal")
+                {
+                    Console.WriteLine("Healed");
+                    if (_player1.numberPotions > 0)
+                    {
+                        _player1.numberPotions -= 1;
+                        _player1.currentHP += 50;
+                        if (_player1.currentHP > 150)
+                        {
+                            _player1.currentHP = 150;
+                        }
+                    }
+                }
+                if (_player2Move == "Heal")
+                {
+                    Console.WriteLine("Healed");
+                    if (_player2.numberPotions > 0)
+                    {
+                        _player2.numberPotions -= 1;
+                        _player2.currentHP += 50;
+                        if (_player2.currentHP > 150)
+                        {
+                            _player2.currentHP = 150;
+                        }
+                    }
+                }
                 switch (_player1Move)
                 {
                     case "Slash": 
                         Console.WriteLine($"{_player1.username} used Slash on {_player2.username}!");
                         if (!_player2.isBlocking)
                         {
-                            _player2.currentHP -= 20;
+                            _player2.currentHP -= damageCalc(20, _player2.defense);
                             Console.WriteLine($"HP left: {_player2.currentHP}");
                         }
                         else
@@ -54,9 +80,9 @@ namespace ProjectServer
                         Console.WriteLine($"{_player1.username} used Whirlwind Blade on {_player2.username}!");
                         if (!_player2.isBlocking)
                         {
-                            _player2.currentHP -= 15;
+                            _player2.currentHP -= damageCalc(15, _player2.defense);
                             _player2.defense = (float)Math.Round(_player2.defense * 8f) / 10;
-                            Console.WriteLine($"{_player2.username}'s defense was lowered by 10%!");
+                            Console.WriteLine($"{_player2.username}'s defense was lowered by 20%!");
                             Console.WriteLine($"HP left: {_player2.currentHP}");
                         }
                         else
@@ -65,16 +91,6 @@ namespace ProjectServer
                         }
                         break;
                     case "Heal":
-                        Console.WriteLine("Healed");
-                        if (_player1.numberPotions > 0)
-                        {
-                            _player1.numberPotions -= 1;
-                            _player1.currentHP += 50;
-                            if (_player2.currentHP > 150)
-                            {
-                                _player2.currentHP = 150;
-                            }
-                        }
                         break;
                     case "Flurry":
                         Console.WriteLine("Flurry");
@@ -84,7 +100,8 @@ namespace ProjectServer
                         {
                             int _timesHit = random.Next(2, 6);
                             Console.WriteLine($"Hit {_timesHit} times!");
-                            _player2.currentHP -= (_timesHit * 15);
+                            _player2.currentHP -= (_timesHit * damageCalc(10, _player2.defense));
+                            _player1.timesHit = _timesHit;
                             Console.WriteLine($"HP left: {_player2.currentHP}");
                         }
                         else
@@ -101,7 +118,7 @@ namespace ProjectServer
                         Console.WriteLine($"{_player2.username} used Slash on {_player1.username}!");
                         if (!_player1.isBlocking)
                         {
-                            _player1.currentHP -= 20;
+                            _player1.currentHP -= damageCalc(20, _player1.defense);
                             Console.WriteLine($"HP left: {_player1.currentHP}");
                         }
                         else
@@ -115,7 +132,7 @@ namespace ProjectServer
                         Console.WriteLine($"{_player2.username} used Whirlwind Blade on {_player1.username}!");
                         if (!_player1.isBlocking)
                         {
-                            _player1.currentHP -= 15;
+                            _player1.currentHP -= damageCalc(15, _player1.defense);
                             _player1.defense = (float)Math.Round(_player1.defense * 8f) / 10;
                             Console.WriteLine($"{_player1.username}'s defense was lowered by 10%!");
                             Console.WriteLine($"HP left: {_player1.currentHP}");
@@ -126,16 +143,6 @@ namespace ProjectServer
                         }
                         break;
                     case "Heal":
-                        Console.WriteLine("Healed");
-                        if (_player2.numberPotions > 0)
-                        {
-                            _player2.numberPotions -= 1;
-                            _player2.currentHP += 50;
-                            if (_player2.currentHP > 150)
-                            {
-                                _player2.currentHP = 150;
-                            }
-                        }
                         break;
                     case "Flurry":
                         Console.WriteLine("Flurry");
@@ -145,7 +152,8 @@ namespace ProjectServer
                         {
                             int _timesHit = random.Next(2, 6);
                             Console.WriteLine($"Hit {_timesHit} times!");
-                            _player1.currentHP -= (_timesHit * 15);
+                            _player1.currentHP -= (_timesHit * damageCalc(10, _player1.defense));
+                            _player2.timesHit = _timesHit;
                             Console.WriteLine($"HP left: {_player1.currentHP}");
                         }
                         else
@@ -170,6 +178,12 @@ namespace ProjectServer
                 }
             }
             return;
+        }
+
+        public static int damageCalc(float damage, float defense)
+        {
+            damage = damage + (damage * (1.0f - defense));
+            return (int)Math.Round(damage);
         }
     }
 }

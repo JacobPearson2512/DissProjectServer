@@ -19,6 +19,7 @@ namespace ProjectServer
         public bool isBlocking;
         public string currentMove;
         public float defense;
+        public int timesHit;
 
         public Player(int _id, string _username, int _maxHP,  int _numberPotions)
         {
@@ -30,6 +31,7 @@ namespace ProjectServer
             isBlocking = false;
             defense = 1.0f;
             currentMove = "";
+            timesHit = 0;
         }
     }
 }
