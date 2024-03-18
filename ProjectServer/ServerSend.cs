@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace ProjectServer
@@ -117,6 +118,26 @@ namespace ProjectServer
                 _packet.Write(_player.timesHit);
 
                 SendUDPData(_toClient, _packet);
+            }
+        }
+
+        public static void JsonResult(int _toClient, Player _player)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.JsonResult))
+            {
+                string _json = JsonSerializer.Serialize(_player);
+                Console.WriteLine(_json);
+                _packet.Write(_json);
+                SendUDPData(_toClient,_packet);
+            }
+        }
+
+        public static void Marker(int _toClient)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.marker))
+            {
+                _packet.Write("Marker arrived, initiate snapshot");
+                SendTCPData(_toClient, _packet);
             }
         }
     }

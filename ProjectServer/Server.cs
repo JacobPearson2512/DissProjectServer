@@ -127,7 +127,8 @@ namespace ProjectServer
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived},
                 { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived},
-                { (int)ClientPackets.moveSelected, ServerHandle.MoveSelected}
+                { (int)ClientPackets.moveSelected, ServerHandle.MoveSelected},
+                { (int)ClientPackets.marker, ServerHandle.MarkerReceived}
             };
             Console.WriteLine("Initialised Packets.");
 

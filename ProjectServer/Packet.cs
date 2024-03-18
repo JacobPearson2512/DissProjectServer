@@ -12,7 +12,9 @@ namespace ProjectServer
         spawnPlayer,
         startBattle,
         updatePlayer,
-        udpTest
+        udpTest,
+        JsonResult,
+        marker
     }
 
     /// <summary>Sent from client to server.</summary>
@@ -20,7 +22,8 @@ namespace ProjectServer
     {
         welcomeReceived = 1,
         moveSelected,
-        udpTestReceived
+        udpTestReceived,
+        marker
     }
 
     public class Packet : IDisposable

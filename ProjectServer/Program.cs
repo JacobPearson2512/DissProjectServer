@@ -5,6 +5,7 @@ namespace ProjectServer
 {
     class Program
     {
+        public static SnapshotManager snapshotManager;
         private static bool isRunning = false;
         static void Main(string[] args)
         {
@@ -14,6 +15,11 @@ namespace ProjectServer
             mainThread.Start();
             Server.Start(3, 19855);
             Console.WriteLine("Hello, World!");
+            GlobalState initialState = new GlobalState(150, 150, 1, 1, 3, 3);
+            snapshotManager = new SnapshotManager();
+            // Take a snapshot of the initial state
+            Snapshot initialSnapshot = snapshotManager.TakeSnapshot(snapshotManager.snapshotId, initialState);
+
         }
 
         private static void MainThread()
