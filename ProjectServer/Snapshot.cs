@@ -58,6 +58,11 @@ namespace ProjectServer
             // For example, compare the states of different snapshots to identify discrepancies
             // You can also implement Lamport's snapshot algorithm here
         }
+
+        public GlobalState getFinalState()
+        {
+            return snapshots[snapshots.Count-1].state;
+        }
     }
 
 

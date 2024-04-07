@@ -164,18 +164,26 @@ namespace ProjectServer
                 }
                 _player1.isBlocking = false;
                 _player2.isBlocking = false;
+                if(_player1.currentHP <= 0 &&  _player2.currentHP <= 0)
+                {
+                    Console.WriteLine("GAME OVER -> TIE GAME!!!");
+                    _player1.hasWon = true;
+                    _player2.hasWon = true;
+                }
+                else if(_player1.currentHP <= 0) // TODO: tie possibility?
+                {
+                    Console.WriteLine($"GAME OVER -> {_player2.username} WINS!!!");
+                    _player2.hasWon = true;
+                }
+                else if(_player2.currentHP <= 0)
+                {
+                    Console.WriteLine($"GAME OVER -> {_player1.username} WINS!!!");
+                    _player1.hasWon = true;
+                }
                 ServerSend.UpdatePlayer(_player1ID, _player1);
                 ServerSend.UpdatePlayer(_player1ID, _player2);
                 ServerSend.UpdatePlayer(_player2ID, _player1);
                 ServerSend.UpdatePlayer(_player2ID, _player2);
-                if(_player1.currentHP <= 0) // TODO: tie possibility?
-                {
-                    Console.WriteLine($"GAME OVER -> {_player2.username} WINS!!!");
-                }
-                if(_player2.currentHP <= 0)
-                {
-                    Console.WriteLine($"GAME OVER -> {_player1.username} WINS!!!");
-                }
             }
             return;
         }

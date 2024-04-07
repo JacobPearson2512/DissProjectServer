@@ -14,6 +14,10 @@ namespace ProjectServer
 
         public int id;
         public Player player;
+        public GlobalState initialState;
+        public GlobalState finalState;
+        public List<MoveHistoryEntry> moveHistory;
+        public int winningPlayerID;
         public TCP tcp;
         public UDP udp;
 

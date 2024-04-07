@@ -20,6 +20,7 @@ namespace ProjectServer
         public string currentMove;
         public float defense;
         public int timesHit;
+        public bool hasWon;
 
         public Player(int _id, string _username, int _maxHP,  int _numberPotions)
         {
@@ -32,6 +33,7 @@ namespace ProjectServer
             defense = 1.0f;
             currentMove = "";
             timesHit = 0;
+            hasWon = false;
         }
     }
 }

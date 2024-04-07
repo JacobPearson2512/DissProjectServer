@@ -23,7 +23,11 @@ namespace ProjectServer
         welcomeReceived = 1,
         moveSelected,
         udpTestReceived,
-        marker
+        marker,
+        sendInitialState,
+        sendWinner,
+        sendFinalState,
+        sendMoveHistory
     }
 
     public class Packet : IDisposable

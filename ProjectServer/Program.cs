@@ -6,6 +6,7 @@ namespace ProjectServer
     class Program
     {
         public static SnapshotManager snapshotManager;
+        public static bool injectInconsistency;
         private static bool isRunning = false;
         static void Main(string[] args)
         {
@@ -13,6 +14,16 @@ namespace ProjectServer
             isRunning = true;
             Thread mainThread = new Thread(new ThreadStart(MainThread));
             mainThread.Start();
+            Console.WriteLine("Would you like to simulate inconsistency? Y/N\n");
+            string answer = Console.ReadLine();
+            if (answer == "Y")
+            {
+                injectInconsistency = true;
+            }
+            else
+            {
+                injectInconsistency = false;
+            }
             Server.Start(3, 19855);
             Console.WriteLine("Hello, World!");
             GlobalState initialState = new GlobalState(150, 150, 1, 1, 3, 3);

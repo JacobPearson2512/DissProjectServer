@@ -128,7 +128,11 @@ namespace ProjectServer
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived},
                 { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived},
                 { (int)ClientPackets.moveSelected, ServerHandle.MoveSelected},
-                { (int)ClientPackets.marker, ServerHandle.MarkerReceived}
+                { (int)ClientPackets.marker, ServerHandle.MarkerReceived},
+                { (int)ClientPackets.sendInitialState, ServerHandle.ClientInitialState},
+                { (int)ClientPackets.sendWinner, ServerHandle.ClientWinner},
+                { (int)ClientPackets.sendFinalState, ServerHandle.ClientFinalState},
+                { (int)ClientPackets.sendMoveHistory, ServerHandle.ClientMoveHistory}
             };
             Console.WriteLine("Initialised Packets.");
 

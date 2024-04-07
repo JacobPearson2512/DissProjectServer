@@ -116,6 +116,7 @@ namespace ProjectServer
                 _packet.Write(_player.defense);
                 _packet.Write(_player.currentMove);
                 _packet.Write(_player.timesHit);
+                _packet.Write(_player.hasWon);
 
                 SendUDPData(_toClient, _packet);
             }
