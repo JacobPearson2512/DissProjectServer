@@ -126,7 +126,7 @@ namespace ProjectServer
                 return stateDistance;
                 // Snapshot record, get end state of server and client
                 // calculate difference between the two, levenshtein?
-                // as of 5/4/24 - Then add move effect history + comparison. Injection of inconsistency too. 
+                // as of 7/4/24 - need inconsistency injection. 
             }
 
             public int CompareMoveEffectHistory()
@@ -190,7 +190,6 @@ namespace ProjectServer
                 }
                 
                 return moveDifferences; 
-                // TCP request saved move history on client, compare to own. Add one for every mismatched move+effect
             }
 
             public int Calculate()

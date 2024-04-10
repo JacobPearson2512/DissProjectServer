@@ -35,5 +35,19 @@ namespace ProjectServer
             timesHit = 0;
             hasWon = false;
         }
+
+        public Player(int _id, string _username, int _maxHP, int _numberPotions, bool _hasWon, int _currentHP, float _defense, int _timesHit, string _currentMove)
+        {
+            id = _id;
+            username = _username;
+            maxHP = _maxHP;
+            currentHP = _currentHP;
+            numberPotions = _numberPotions;
+            isBlocking = false;
+            defense = _defense;
+            currentMove = _currentMove;
+            timesHit = _timesHit;
+            hasWon = _hasWon;
+        }
     }
 }

@@ -10,6 +10,7 @@ namespace ProjectServer
 {
     class ServerSend
     {
+        static InconsistencyInjection injection = new InconsistencyInjection();
         private static void SendTCPData(int _toClient, Packet _packet)
         {
             _packet.WriteLength();
@@ -86,10 +87,18 @@ namespace ProjectServer
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
             {
+                int maxHP = _player.maxHP;
+                int numberPotions = _player.numberPotions;
+                if (Program.injectInconsistency)
+                {
+                    (int, int) HpPotions = injection.AlterInitialState(_player);
+                    maxHP = HpPotions.Item1;
+                    numberPotions = HpPotions.Item2;
+                }
                 _packet.Write(_player.id);
                 _packet.Write(_player.username);
-                _packet.Write(_player.maxHP);
-                _packet.Write(_player.numberPotions);
+                _packet.Write(maxHP);
+                _packet.Write(numberPotions);
 
                 SendTCPData(_toClient, _packet);
             }

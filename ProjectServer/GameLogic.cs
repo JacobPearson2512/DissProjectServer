@@ -17,6 +17,7 @@ namespace ProjectServer
         // TODO: fine for now. Needs updating with defense logic, and potentially shrinking down for efficiency + tidiness.
         public static void HandleAction()
         {
+            InconsistencyInjection injection = new InconsistencyInjection();
             Queue<(int, string)> _moveQueue = ServerHandle.moveQueue;
             if (_moveQueue != null)
             {
@@ -24,6 +25,8 @@ namespace ProjectServer
                 (int _player2ID, string _player2Move) = _moveQueue.Dequeue();
                 Player _player1 = Server.clients[_player1ID].player;
                 Player _player2 = Server.clients[_player2ID].player;
+                int originalHPP1 = _player1.currentHP;
+                int originalHPP2 = _player2.currentHP;
                 if (_player1Move == "Protect")
                 {
                     _player1.isBlocking = true;
@@ -180,10 +183,39 @@ namespace ProjectServer
                     Console.WriteLine($"GAME OVER -> {_player1.username} WINS!!!");
                     _player1.hasWon = true;
                 }
-                ServerSend.UpdatePlayer(_player1ID, _player1);
-                ServerSend.UpdatePlayer(_player1ID, _player2);
-                ServerSend.UpdatePlayer(_player2ID, _player1);
-                ServerSend.UpdatePlayer(_player2ID, _player2);
+                int damageDealtP1 = originalHPP1 - _player1.currentHP;
+                int damageDealtP2 = originalHPP2 - _player2.currentHP;
+                if (Program.injectInconsistency)
+                {
+                    Player _corruptedPlayer1 = injection.AlterDamage(_player1, damageDealtP1);
+                    Player _corruptedPlayer2 = injection.AlterDamage(_player2, damageDealtP2);
+                    Random _rng = new Random();
+                    if (_rng.Next(2) == 1) // corrupt message sent to Client 1. 
+                    {
+                        ServerSend.UpdatePlayer(_player1ID, _corruptedPlayer1);
+                        ServerSend.UpdatePlayer(_player1ID, _corruptedPlayer2);
+                        ServerSend.UpdatePlayer(_player2ID, _player1);
+                        ServerSend.UpdatePlayer(_player2ID, _player2);
+                    }
+                    else // corrupt message sent to client 2.
+                    {
+                        ServerSend.UpdatePlayer(_player1ID, _player1);
+                        ServerSend.UpdatePlayer(_player1ID, _player2);
+                        ServerSend.UpdatePlayer(_player2ID, _corruptedPlayer1);
+                        ServerSend.UpdatePlayer(_player2ID, _corruptedPlayer2);
+                    }
+                    
+                }
+                else // send unaltered player info to both clients.
+                {
+                    ServerSend.UpdatePlayer(_player1ID, _player1);
+                    ServerSend.UpdatePlayer(_player1ID, _player2);
+                    ServerSend.UpdatePlayer(_player2ID, _player1);
+                    ServerSend.UpdatePlayer(_player2ID, _player2);
+                }
+                //_player1.currentHP = originalHPP1 - damageDealtP1;
+                //_player2.currentHP = originalHPP2 - damageDealtP2; // issue is applies to both clients.
+                
             }
             return;
         }
