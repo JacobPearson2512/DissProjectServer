@@ -28,13 +28,7 @@ namespace ProjectServer
             
         }
 
-        /*public int AlterWinner()
-        {
-
-        }*/
-
-        // change to return player. this is then called in the update player.
-        public Player AlterDamage(Player _player, int _dmg)
+        public Player AlterDamage(Player _player, int _dmg, int _originalHP)
         {
             Console.WriteLine($"Damage dealt this turn pre corruption to Player {_player.id}: {_dmg}");
             Player corruptedPlayer = new Player(_player.id, _player.username, _player.maxHP, _player.numberPotions, _player.hasWon, _player.currentHP, _player.defense, _player.timesHit, _player.currentMove);
@@ -49,7 +43,7 @@ namespace ProjectServer
                     _dmg -= rng.Next(10);
                 }
             }
-            corruptedPlayer.currentHP = corruptedPlayer.currentHP - _dmg;
+            corruptedPlayer.currentHP = _originalHP - _dmg;
             Console.WriteLine($"Damage dealt this turn post corruption to Player {_player.id}: {_dmg}");
             return corruptedPlayer;
         }

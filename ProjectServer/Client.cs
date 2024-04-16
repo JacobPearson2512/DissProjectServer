@@ -52,7 +52,7 @@ namespace ProjectServer
                 receiveBuffer = new byte[dataBufferSize];
                 stream.BeginRead(receiveBuffer, 0, dataBufferSize, ReceiveCallback, null);
 
-                ServerSend.Welcome(id, "Welcome to the server.");
+                ServerSend.Welcome(id, "Welcome to the server.", Program.injectInconsistency);
             }
 
             public void SendData(Packet _packet)

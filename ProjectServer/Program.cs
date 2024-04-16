@@ -16,7 +16,7 @@ namespace ProjectServer
             mainThread.Start();
             Console.WriteLine("Would you like to simulate inconsistency? Y/N\n");
             string answer = Console.ReadLine();
-            if (answer == "Y")
+            if (answer == "Y" || answer == "y")
             {
                 injectInconsistency = true;
             }
@@ -25,7 +25,7 @@ namespace ProjectServer
                 injectInconsistency = false;
             }
             Server.Start(3, 19855);
-            Console.WriteLine("Hello, World!");
+            //Console.WriteLine("Hello, World!");
             GlobalState initialState = new GlobalState(150, 150, 1, 1, 3, 3);
             snapshotManager = new SnapshotManager();
             // Take a snapshot of the initial state

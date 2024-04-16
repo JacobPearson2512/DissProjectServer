@@ -187,8 +187,8 @@ namespace ProjectServer
                 int damageDealtP2 = originalHPP2 - _player2.currentHP;
                 if (Program.injectInconsistency)
                 {
-                    Player _corruptedPlayer1 = injection.AlterDamage(_player1, damageDealtP1);
-                    Player _corruptedPlayer2 = injection.AlterDamage(_player2, damageDealtP2);
+                    Player _corruptedPlayer1 = injection.AlterDamage(_player1, damageDealtP1, originalHPP1);
+                    Player _corruptedPlayer2 = injection.AlterDamage(_player2, damageDealtP2, originalHPP2);
                     Random _rng = new Random();
                     if (_rng.Next(2) == 1) // corrupt message sent to Client 1. 
                     {

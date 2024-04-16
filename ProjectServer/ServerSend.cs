@@ -65,11 +65,12 @@ namespace ProjectServer
             }
         }
 
-        public static void Welcome (int _toClient, string _msg)
+        public static void Welcome (int _toClient, string _msg, bool _inject)
         {
             Packet _packet = new Packet((int)ServerPackets.welcome);
             _packet.Write(_msg);
             _packet.Write(_toClient);
+            _packet.Write(_inject);
             SendTCPData(_toClient, _packet);
         }
 
