@@ -151,5 +151,19 @@ namespace ProjectServer
                 SendTCPData(_toClient, _packet);
             }
         }
+
+        public static void Consensus(int _toClient, GlobalState _majorityState)
+        {
+            using (Packet _packet = new Packet((int)ServerPackets.Consensus))
+            {
+                _packet.Write(_majorityState.player1Health);
+                _packet.Write(_majorityState.player2Health);
+                _packet.Write(_majorityState.player1Defense);
+                _packet.Write(_majorityState.player2Defense);
+                _packet.Write(_majorityState.player1Potions);
+                _packet.Write(_majorityState.player2Potions);
+                SendTCPData( _toClient, _packet);
+            }
+        }
     }
 }

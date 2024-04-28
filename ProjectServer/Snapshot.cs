@@ -40,6 +40,7 @@ namespace ProjectServer
 
     public class SnapshotManager
     {
+        public bool recorded = false;
         public int snapshotId = 0;
         private List<Snapshot> snapshots = new List<Snapshot>();
 
@@ -52,12 +53,6 @@ namespace ProjectServer
         }
 
         // Method to analyze snapshots and detect inconsistencies
-        public void AnalyzeSnapshots()
-        {
-            // Implement logic to analyze snapshots and detect inconsistencies
-            // For example, compare the states of different snapshots to identify discrepancies
-            // You can also implement Lamport's snapshot algorithm here
-        }
 
         public GlobalState getFinalState()
         {

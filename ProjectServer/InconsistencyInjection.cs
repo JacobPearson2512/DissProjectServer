@@ -14,15 +14,18 @@ namespace ProjectServer
         {
             int maxHP = _player.maxHP;
             int numberPotions = _player.numberPotions;
-            if (rng.Next(2) == 1)
+            if(rng.Next(3) == 1)
             {
-                maxHP += rng.Next(20);
-                numberPotions += rng.Next(2);
-            }
-            else
-            {
-                maxHP -= rng.Next(20);
-                numberPotions-= rng.Next(2);
+                if (rng.Next(2) == 1)
+                {
+                    maxHP += rng.Next(20);
+                    numberPotions += rng.Next(2);
+                }
+                else
+                {
+                    maxHP -= rng.Next(20);
+                    numberPotions -= rng.Next(2);
+                }
             }
             return (maxHP, numberPotions);
             
@@ -32,7 +35,7 @@ namespace ProjectServer
         {
             Console.WriteLine($"Damage dealt this turn pre corruption to Player {_player.id}: {_dmg}");
             Player corruptedPlayer = new Player(_player.id, _player.username, _player.maxHP, _player.numberPotions, _player.hasWon, _player.currentHP, _player.defense, _player.timesHit, _player.currentMove);
-            if (rng.Next(2) == 0)
+            if (rng.Next(3) == 0)
             {
                 if (rng.Next(2) == 1)
                 {

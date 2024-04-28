@@ -9,7 +9,6 @@ namespace ProjectServer
 {
     class InconsistencyEvaluation
     {
-        // TODO: INSTEAD OF PLAYERS THIS SHOULD BE CLIENTS. REQUEST PACKETS ETC.
         public class LocalInconsistency
         {
             public int id;
@@ -22,6 +21,12 @@ namespace ProjectServer
                 id = _id;
                 playerI = _playerI;
                 playerJ = _playerJ;
+            }
+
+            public LocalInconsistency(int _id, Client _client)
+            {
+                id = _id;
+                playerI = _client;
             }
 
             public int Calculate()
@@ -44,6 +49,30 @@ namespace ProjectServer
                 }
                 return value;
             }
+
+            public int CalculateServer()
+            {
+                bool sameStates;
+                Console.WriteLine($"{playerI.initialState.player1Health} {playerI.initialState.player2Health} {playerI.initialState.player1Defense} {playerI.initialState.player2Defense} {playerI.initialState.player1Potions} {playerI.initialState.player1Potions}");
+                if ((playerI.initialState.player1Health == 150) && (playerI.initialState.player2Health == 150) && (playerI.initialState.player1Defense == 1.0f) && (playerI.initialState.player2Defense == 1.0f) && (playerI.initialState.player1Potions == 3) && (playerI.initialState.player2Potions == 3))
+                {
+                    sameStates = true;
+                }
+                else
+                {
+                    sameStates=false;
+                    Console.WriteLine("Player states were unmatched to begin with.");
+                    value += 1;
+                }
+
+                if (playerI.winningPlayerID != GameLogic.winningPlayerID)
+                {
+                    Console.WriteLine("Server and Client have different winners.");
+                    value += 1;
+                }
+                return value;
+            }
+
         }
 
         public int CalculateTotalInconsistency(List<LocalInconsistency> localInconsistencies)

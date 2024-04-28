@@ -14,7 +14,8 @@ namespace ProjectServer
         updatePlayer,
         udpTest,
         JsonResult,
-        marker
+        marker,
+        Consensus
     }
 
     /// <summary>Sent from client to server.</summary>

@@ -9,6 +9,8 @@ namespace ProjectServer
 {
     class GameLogic
     {
+        public static int turn = 0;
+        public static int winningPlayerID;
         public static void Update()
         {
             ThreadManager.UpdateMain();
@@ -17,6 +19,8 @@ namespace ProjectServer
         // TODO: fine for now. Needs updating with defense logic, and potentially shrinking down for efficiency + tidiness.
         public static void HandleAction()
         {
+            turn++;
+            Console.WriteLine($"TURN {turn}");
             InconsistencyInjection injection = new InconsistencyInjection();
             Queue<(int, string)> _moveQueue = ServerHandle.moveQueue;
             if (_moveQueue != null)
@@ -172,16 +176,19 @@ namespace ProjectServer
                     Console.WriteLine("GAME OVER -> TIE GAME!!!");
                     _player1.hasWon = true;
                     _player2.hasWon = true;
+                    winningPlayerID = 0;
                 }
                 else if(_player1.currentHP <= 0) // TODO: tie possibility?
                 {
                     Console.WriteLine($"GAME OVER -> {_player2.username} WINS!!!");
                     _player2.hasWon = true;
+                    winningPlayerID = 2;
                 }
                 else if(_player2.currentHP <= 0)
                 {
                     Console.WriteLine($"GAME OVER -> {_player1.username} WINS!!!");
                     _player1.hasWon = true;
+                    winningPlayerID = 1;
                 }
                 int damageDealtP1 = originalHPP1 - _player1.currentHP;
                 int damageDealtP2 = originalHPP2 - _player2.currentHP;
@@ -192,6 +199,7 @@ namespace ProjectServer
                     Random _rng = new Random();
                     if (_rng.Next(2) == 1) // corrupt message sent to Client 1. 
                     {
+                        Console.WriteLine("Corruption Affecting Client 1");
                         ServerSend.UpdatePlayer(_player1ID, _corruptedPlayer1);
                         ServerSend.UpdatePlayer(_player1ID, _corruptedPlayer2);
                         ServerSend.UpdatePlayer(_player2ID, _player1);
@@ -199,6 +207,7 @@ namespace ProjectServer
                     }
                     else // corrupt message sent to client 2.
                     {
+                        Console.WriteLine("Corruption Affecting Client 2");
                         ServerSend.UpdatePlayer(_player1ID, _player1);
                         ServerSend.UpdatePlayer(_player1ID, _player2);
                         ServerSend.UpdatePlayer(_player2ID, _corruptedPlayer1);
