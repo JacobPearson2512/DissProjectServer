@@ -12,8 +12,6 @@ namespace ProjectServer
         spawnPlayer,
         startBattle,
         updatePlayer,
-        udpTest,
-        JsonResult,
         marker,
         Consensus
     }
@@ -23,7 +21,6 @@ namespace ProjectServer
     {
         welcomeReceived = 1,
         moveSelected,
-        udpTestReceived,
         marker,
         sendInitialState,
         sendWinner,

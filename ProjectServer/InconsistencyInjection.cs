@@ -33,7 +33,6 @@ namespace ProjectServer
 
         public Player AlterDamage(Player _player, int _dmg, int _originalHP)
         {
-            Console.WriteLine($"Damage dealt this turn pre corruption to Player {_player.id}: {_dmg}");
             Player corruptedPlayer = new Player(_player.id, _player.username, _player.maxHP, _player.numberPotions, _player.hasWon, _player.currentHP, _player.defense, _player.timesHit, _player.currentMove);
             if (rng.Next(3) == 0)
             {
@@ -47,7 +46,6 @@ namespace ProjectServer
                 }
             }
             corruptedPlayer.currentHP = _originalHP - _dmg;
-            Console.WriteLine($"Damage dealt this turn post corruption to Player {_player.id}: {_dmg}");
             return corruptedPlayer;
         }
     }

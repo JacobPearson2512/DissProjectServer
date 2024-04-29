@@ -44,15 +44,12 @@ namespace ProjectServer
         public int snapshotId = 0;
         private List<Snapshot> snapshots = new List<Snapshot>();
 
-        // Method to initiate a snapshot
         public Snapshot TakeSnapshot(int snapshotId, GlobalState state)
         {
             Snapshot snapshot = new Snapshot(snapshotId, state);
             snapshots.Add(snapshot);
             return snapshot;
         }
-
-        // Method to analyze snapshots and detect inconsistencies
 
         public GlobalState getFinalState()
         {

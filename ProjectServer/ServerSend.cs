@@ -74,16 +74,6 @@ namespace ProjectServer
             SendTCPData(_toClient, _packet);
         }
 
-        public static void UDPTest(int _toClient)
-        {
-            using (Packet _packet = new Packet((int)ServerPackets.udpTest))
-            {
-                _packet.Write("Hi! I'm a UDP test packet!");
-
-                SendUDPData(_toClient, _packet);
-            }
-        }
-
         public static void SpawnPlayer(int _toClient, Player _player)
         {
             using (Packet _packet = new Packet((int)ServerPackets.spawnPlayer))
@@ -129,17 +119,6 @@ namespace ProjectServer
                 _packet.Write(_player.hasWon);
 
                 SendUDPData(_toClient, _packet);
-            }
-        }
-
-        public static void JsonResult(int _toClient, Player _player)
-        {
-            using (Packet _packet = new Packet((int)ServerPackets.JsonResult))
-            {
-                string _json = JsonSerializer.Serialize(_player);
-                Console.WriteLine(_json);
-                _packet.Write(_json);
-                SendUDPData(_toClient,_packet);
             }
         }
 

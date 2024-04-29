@@ -153,9 +153,6 @@ namespace ProjectServer
                     }
                 }
                 return stateDistance;
-                // Snapshot record, get end state of server and client
-                // calculate difference between the two, levenshtein?
-                // as of 7/4/24 - need inconsistency injection. 
             }
 
             public int CompareMoveEffectHistory()

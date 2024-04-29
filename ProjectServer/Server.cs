@@ -35,7 +35,7 @@ namespace ProjectServer
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
 
-            udpListener = new UdpClient(Port); // i dont like this. Change to client, consistency.
+            udpListener = new UdpClient(Port);
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server has started on Port: {Port}!");
@@ -126,7 +126,6 @@ namespace ProjectServer
             packetHandlers = new Dictionary<int, PacketHandler>()
             {
                 { (int)ClientPackets.welcomeReceived, ServerHandle.WelcomeReceived},
-                { (int)ClientPackets.udpTestReceived, ServerHandle.UDPTestReceived},
                 { (int)ClientPackets.moveSelected, ServerHandle.MoveSelected},
                 { (int)ClientPackets.marker, ServerHandle.MarkerReceived},
                 { (int)ClientPackets.sendInitialState, ServerHandle.ClientInitialState},

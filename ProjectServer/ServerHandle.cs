@@ -25,14 +25,8 @@ namespace ProjectServer
             {
                 Console.WriteLine($"Player \"{_username}\" (ID: {_fromClient}) has assumed the wrong client ID ({_clientId})!");
             }
-            Console.WriteLine(_username);
+            Console.WriteLine($"Assumed player name: {_username}");
             Server.clients[_fromClient].SendIntoGame(_username);
-        }
-
-        public static void UDPTestReceived(int _fromClient, Packet _packet)
-        {
-            string _msg = _packet.ReadString();
-            //Console.WriteLine($"Received via UDP. Contains: {_msg}");
         }
 
         public static void MoveSelected(int _fromClient, Packet _packet)
@@ -114,7 +108,7 @@ namespace ProjectServer
                         $"Player 2: <HP: {snapshot.state.player2Health}, Defense: {snapshot.state.player2Defense}, Potions: {snapshot.state.player2Potions}>");
                 }
                 List<InconsistencyEvaluation.LocalInconsistency> localInconsistencies = new List<InconsistencyEvaluation.LocalInconsistency>();
-                InconsistencyEvaluation.LocalInconsistency localInconsistency1 = new InconsistencyEvaluation.LocalInconsistency(0, Server.clients[2], Server.clients[1]);  // TODO FIX ID
+                InconsistencyEvaluation.LocalInconsistency localInconsistency1 = new InconsistencyEvaluation.LocalInconsistency(0, Server.clients[2], Server.clients[1]);
                 Console.WriteLine($"Local Inconsistency of two clients: {localInconsistency1.Calculate()}");
                 localInconsistencies.Add(localInconsistency1);
                 InconsistencyEvaluation.LocalInconsistency localInconsistency2 = new InconsistencyEvaluation.LocalInconsistency(1, Server.clients[1]);

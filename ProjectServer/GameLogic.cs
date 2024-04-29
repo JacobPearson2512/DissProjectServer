@@ -16,10 +16,10 @@ namespace ProjectServer
             ThreadManager.UpdateMain();
         }
 
-        // TODO: fine for now. Needs updating with defense logic, and potentially shrinking down for efficiency + tidiness.
         public static void HandleAction()
         {
             turn++;
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             Console.WriteLine($"TURN {turn}");
             InconsistencyInjection injection = new InconsistencyInjection();
             Queue<(int, string)> _moveQueue = ServerHandle.moveQueue;
@@ -178,7 +178,7 @@ namespace ProjectServer
                     _player2.hasWon = true;
                     winningPlayerID = 0;
                 }
-                else if(_player1.currentHP <= 0) // TODO: tie possibility?
+                else if(_player1.currentHP <= 0) 
                 {
                     Console.WriteLine($"GAME OVER -> {_player2.username} WINS!!!");
                     _player2.hasWon = true;
@@ -190,6 +190,7 @@ namespace ProjectServer
                     _player1.hasWon = true;
                     winningPlayerID = 1;
                 }
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 int damageDealtP1 = originalHPP1 - _player1.currentHP;
                 int damageDealtP2 = originalHPP2 - _player2.currentHP;
                 if (Program.injectInconsistency)
@@ -222,9 +223,6 @@ namespace ProjectServer
                     ServerSend.UpdatePlayer(_player2ID, _player1);
                     ServerSend.UpdatePlayer(_player2ID, _player2);
                 }
-                //_player1.currentHP = originalHPP1 - damageDealtP1;
-                //_player2.currentHP = originalHPP2 - damageDealtP2; // issue is applies to both clients.
-                
             }
             return;
         }
