@@ -36,7 +36,8 @@ namespace ProjectServer
             hasWon = false;
         }
 
-        public Player(int _id, string _username, int _maxHP, int _numberPotions, bool _hasWon, int _currentHP, float _defense, int _timesHit, string _currentMove)
+        // this constructor is used for constructing a duplicate player for corruption purposes.
+        public Player(int _id, string _username, int _maxHP, int _numberPotions, bool _hasWon, int _currentHP, float _defense, int _timesHit, string _currentMove) 
         {
             id = _id;
             username = _username;

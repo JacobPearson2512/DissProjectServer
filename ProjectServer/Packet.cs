@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-// TODO TAKEN FROM https://www.youtube.com/watch?v=4uHTSknGJaY either redo, or make sure to reference
+// ADAPTED FROM https://www.youtube.com/watch?v=4uHTSknGJaY - TOM WEILAND
 namespace ProjectServer
 {
     /// <summary>Sent from server to client.</summary>

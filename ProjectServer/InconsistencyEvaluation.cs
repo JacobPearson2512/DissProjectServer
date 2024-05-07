@@ -35,7 +35,7 @@ namespace ProjectServer
                 if ((playerI.initialState.player1Health == playerJ.initialState.player1Health) && (playerI.initialState.player2Health == playerJ.initialState.player2Health) && (playerI.initialState.player1Defense == playerJ.initialState.player1Defense) && (playerI.initialState.player2Defense == playerJ.initialState.player2Defense) && (playerI.initialState.player1Potions == playerJ.initialState.player1Potions) && (playerI.initialState.player2Potions == playerJ.initialState.player2Potions))
                 {
                     sameStates = true;
-                } // TODO: make better
+                }
                 else
                 {
                     sameStates=false;

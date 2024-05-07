@@ -56,6 +56,4 @@ namespace ProjectServer
             return snapshots[snapshots.Count-1].state;
         }
     }
-
-
 }
